@@ -14,15 +14,15 @@
 #         run: echo "cicd success"
 
 name: My First WorkFlow
-
 on:
   push:
-     branches: [ main ]
+    branches: [ main ]
 
 
 jobs:
   demo:
     runs-on: ubuntu-latest
     steps:
-       - name: Greetings
-         run: echo "cicd success"
+      - name: Greetings
+        run: echo "test"
+       
