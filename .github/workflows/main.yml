@@ -1,15 +1,14 @@
-
 name: My First WorkFlow
 
 on:
   push:
     branches: [ main ]
 
-
- jobs:
-   demo:
-     runs-on: ubuntu-latest
-     steps:
-       - name: Greetings
-       - run: echo "cicd success"
-  
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Greetings
+        run: echo "Hello World!"  # Fixed: Added a command to this step
+      - name: Check Status
+        run: echo "cicd success"
