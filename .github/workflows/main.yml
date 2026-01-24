@@ -23,6 +23,6 @@ jobs:
   demo:
     runs-on: ubuntu-latest
     steps:
-      - name: Greetings
-        run: echo "test"
+       - name: Greetings
+         run: echo "test"
        
