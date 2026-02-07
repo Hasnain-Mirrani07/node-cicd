@@ -51,7 +51,6 @@
 #         run: npm run build --if-present
 
 
-
 name: Next.js CI/CD with Caching and Artifacts
 
 on:
@@ -74,7 +73,7 @@ jobs:
 
       # 1. Cache npm dependencies and Next.js build cache
       - name: Cache dependencies and Next.js build
-        uses: [actions/cache@v4](https://github.com)
+        uses: actions/cache@v4
         with:
           path: |
             ~/.npm
@@ -91,23 +90,22 @@ jobs:
 
       # 2. Upload the production build as an artifact
       - name: Upload Build Artifacts
-        uses: [actions/upload-artifact@v4](https://github.com)
+        uses: actions/upload-artifact@v4
         with:
           name: nextjs-production-build
           path: .next/
           retention-days: 7
 
   deploy:
-    # Only run if the build job passes
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code (Optional but recommended)
+      - name: Checkout Code
         uses: actions/checkout@v4
 
       # 3. Download the build artifact from the previous job
       - name: Download Build Artifacts
-        uses: [actions/download-artifact@v4](https://github.com)
+        uses: actions/download-artifact@v4
         with:
           name: nextjs-production-build
           path: .next/
