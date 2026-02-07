@@ -50,6 +50,51 @@
 #       - name: Build
 #         run: npm run build --if-present
 
+# artifact
+# name: Node.js CI
+
+# on:
+#   push:
+#     branches: [ "main" ]
+#   pull_request:
+#     branches: [ "main" ]
+
+# jobs:
+#   build-and-test:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout Code
+#         uses: actions/checkout@v4
+
+#       # 1. Setup Node with built-in caching for npm dependencies
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: '20'
+#           # cache: 'npm' # This caches ~/.npm automatically
+
+#       - name: Install Dependencies
+#         run: npm install
+
+#       - name: Run Tests
+#         run: npm test --if-present
+
+#       - name: Build project
+#         run: npm run build --if-present
+
+#       # 2. Upload the entire project (or a 'dist' folder if you have one)
+#       - name: Upload Build Artifact
+#         uses: actions/upload-artifact@v4
+#         with:
+#           name: node-app-files
+#           # Use '.' to upload everything, or 'dist/' if you compile code
+#           path: . 
+#           retention-days: 5
+
+
+
+
 
 name: Node.js CI
 
@@ -67,15 +112,16 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # 1. Setup Node with built-in caching for npm dependencies
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          # cache: 'npm' # This caches ~/.npm automatically
+          # This will now work because package-lock.json exists in your repo
+          cache: 'npm' 
 
       - name: Install Dependencies
-        run: npm install
+        # npm ci is faster and safer for CI/CD when a lock file exists
+        run: npm ci
 
       - name: Run Tests
         run: npm test --if-present
@@ -83,11 +129,9 @@ jobs:
       - name: Build project
         run: npm run build --if-present
 
-      # 2. Upload the entire project (or a 'dist' folder if you have one)
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
           name: node-app-files
-          # Use '.' to upload everything, or 'dist/' if you compile code
           path: . 
           retention-days: 5
